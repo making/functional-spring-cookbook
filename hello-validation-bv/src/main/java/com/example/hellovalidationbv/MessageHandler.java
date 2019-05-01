@@ -45,7 +45,7 @@ public class MessageHandler {
                 BindingResult bindingResult = new BeanPropertyBindingResult(message, "message");
                 validator.validate(message, bindingResult);
                 if (bindingResult.hasErrors()) {
-                    throw new ServerWebInputException(null);
+                    throw new ServerWebInputException(bindingResult.toString());
                 }
             })
             .doOnNext(messages::add);
