@@ -34,9 +34,9 @@ public class HelloRetrySimpleApplication implements ApplicationContextInitialize
                     .uri("https://httpbin.org/delay/1")
                     .retrieve()
                     .bodyToMono(JsonNode.class)
-                    .retry(10, e -> e instanceof ReadTimeoutException)
                     .log("httpbin");
-                return ok().body(body, JsonNode.class);
+                return ok().body(body.retry(10, e -> e instanceof ReadTimeoutException)
+                    , JsonNode.class);
             })
             .build();
     }
