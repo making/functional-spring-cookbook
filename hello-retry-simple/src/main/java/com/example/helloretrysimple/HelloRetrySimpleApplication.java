@@ -42,12 +42,13 @@ public class HelloRetrySimpleApplication implements ApplicationContextInitialize
 
     @Override
     public void initialize(GenericApplicationContext context) {
+        context.registerBean(ReactorClientHttpConnector.class,
+            () -> new ReactorClientHttpConnector(HttpClient.create()
+                .tcpConfiguration(tcpClient -> tcpClient
+                    .doOnConnected(connection -> connection
+                        .addHandler(new ReadTimeoutHandler(1200, TimeUnit.MILLISECONDS))))));
         context.registerBean(RouterFunction.class, () -> {
-            WebClient.Builder builder = context.getBean(WebClient.Builder.class)
-                .clientConnector(new ReactorClientHttpConnector(HttpClient.create()
-                    .tcpConfiguration(tcpClient -> tcpClient
-                        .doOnConnected(connection -> connection
-                            .addHandler(new ReadTimeoutHandler(1200, TimeUnit.MILLISECONDS))))));
+            WebClient.Builder builder = context.getBean(WebClient.Builder.class);
             return this.routes(builder);
         });
     }
