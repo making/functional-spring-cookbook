@@ -35,8 +35,7 @@ public class HelloRetrySimpleApplication implements ApplicationContextInitialize
                     .retrieve()
                     .bodyToMono(JsonNode.class)
                     .log("httpbin");
-                return ok().body(body.retry(10, e -> e instanceof ReadTimeoutException)
-                    , JsonNode.class);
+                return ok().body(body.retry(10, e -> e instanceof ReadTimeoutException), JsonNode.class);
             })
             .build();
     }
