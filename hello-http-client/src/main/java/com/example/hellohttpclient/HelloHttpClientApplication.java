@@ -21,10 +21,10 @@ public class HelloHttpClientApplication implements ApplicationContextInitializer
     }
 
     RouterFunction<ServerResponse> routes(WebClient.Builder builder) {
-        WebClient webClient = builder.build();
+        final WebClient webClient = builder.build();
         return RouterFunctions.route()
             .GET("/get", req -> {
-                Mono<JsonNode> body = webClient.get()
+                final Mono<JsonNode> body = webClient.get()
                     .uri("https://httpbin.org/get")
                     .retrieve()
                     .bodyToMono(JsonNode.class)
@@ -37,7 +37,7 @@ public class HelloHttpClientApplication implements ApplicationContextInitializer
     @Override
     public void initialize(GenericApplicationContext context) {
         context.registerBean(RouterFunction.class, () -> {
-            WebClient.Builder builder = context.getBean(WebClient.Builder.class);
+            final WebClient.Builder builder = context.getBean(WebClient.Builder.class);
             return this.routes(builder);
         });
     }

@@ -27,10 +27,10 @@ public class HelloRetrySimpleApplication implements ApplicationContextInitialize
     }
 
     RouterFunction<ServerResponse> routes(WebClient.Builder builder) {
-        WebClient webClient = builder.build();
+        final WebClient webClient = builder.build();
         return RouterFunctions.route()
             .GET("/delay", req -> {
-                Mono<JsonNode> body = webClient.get()
+                final Mono<JsonNode> body = webClient.get()
                     .uri("https://httpbin.org/delay/1")
                     .retrieve()
                     .bodyToMono(JsonNode.class)
@@ -48,7 +48,7 @@ public class HelloRetrySimpleApplication implements ApplicationContextInitialize
                     .doOnConnected(connection -> connection
                         .addHandler(new ReadTimeoutHandler(1200, TimeUnit.MILLISECONDS))))));
         context.registerBean(RouterFunction.class, () -> {
-            WebClient.Builder builder = context.getBean(WebClient.Builder.class);
+            final WebClient.Builder builder = context.getBean(WebClient.Builder.class);
             return this.routes(builder);
         });
     }
