@@ -44,7 +44,7 @@ This sample shows how to validate an input using Bean Validation.
 
 This sample shows how to validate an input using [YAVI](https://github.com/making/yavi).
 
-### [hello-circuit-breaker-resilience4j](hello-circuit-breaker-resilience4j)
+### [hello-circuit-breaker-resilience4j](webfluxfn/hello-circuit-breaker-resilience4j)
 
 This sample shows how to use circuit breaker using [Spring Cloud Circuit Breaker](https://github.com/spring-cloud-incubator/spring-cloud-circuitbreaker) and [Resilience4j](https://github.com/resilience4j)
 
