@@ -20,3 +20,11 @@ This sample shows how to use a simple `retry` operator.
 ## [hello-retry-advanced](hello-retry-advanced)
 
 This sample shows how to use `reactor.retry.Retry` from [reactor-addons](https://github.com/reactor/reactor-addons) instead of `retry` operators.
+
+## [hello-caching-chm](hello-caching-chm)
+
+This sample shows how to cache a result using `java.util.concurrent.ConcurrentHashMap` and `reactor.cache.CacheMono` from [reactor-addons](https://github.com/reactor/reactor-addons).
+
+## [hello-caching-caffeine](hello-caching-caffeine)
+
+This sample shows how to cache a result using [Caffeine](https://github.com/ben-manes/caffeine) and `reactor.cache.CacheMono` from [reactor-addons](https://github.com/reactor/reactor-addons).
