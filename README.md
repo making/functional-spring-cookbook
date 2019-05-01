@@ -1,6 +1,11 @@
 # functional-spring-cookbook
 Functional Spring Cookbook
 
+**Disclaimer**
+
+Samples in this repo try to use functions rather than annotations as much as possible.
+This is not always the best practice.
+
 ## [hello-fluxfn](hello-fluxfn)
 
 This sample shows the simplest WebFlux.fn application.
