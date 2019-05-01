@@ -28,3 +28,11 @@ This sample shows how to cache a result using `java.util.concurrent.ConcurrentHa
 ## [hello-caching-caffeine](hello-caching-caffeine)
 
 This sample shows how to cache a result using [Caffeine](https://github.com/ben-manes/caffeine) and `reactor.cache.CacheMono` from [reactor-addons](https://github.com/reactor/reactor-addons).
+
+## [hello-validation-bv](hello-validation-bv)
+
+This sample shows how to validate an input using Bean Validation.
+
+## [hello-validation-yavi](hello-validation-yavi)
+
+This sample shows how to validate an input using [YAVI](https://github.com/making/yavi).
