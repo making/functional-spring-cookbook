@@ -8,9 +8,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import static org.springframework.data.domain.Sort.Order.desc;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
@@ -18,8 +15,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
 public class MessageHandler {
-
-    private final List<Message> messages = new CopyOnWriteArrayList<>();
 
     private final TransactionalDatabaseClient databaseClient;
 
