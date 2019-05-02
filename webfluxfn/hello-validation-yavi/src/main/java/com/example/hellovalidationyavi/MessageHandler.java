@@ -1,7 +1,6 @@
 package com.example.hellovalidationyavi;
 
 import am.ik.yavi.core.ConstraintViolations;
-import org.springframework.validation.Validator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -17,12 +16,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class MessageHandler {
 
     private final List<Message> messages = new CopyOnWriteArrayList<>();
-
-    private final Validator validator;
-
-    public MessageHandler(Validator validator) {
-        this.validator = validator;
-    }
 
     public RouterFunction<ServerResponse> routes() {
         return route()
