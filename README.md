@@ -52,6 +52,10 @@ This sample shows how to use circuit breaker using [Spring Cloud Circuit Breaker
 
 This sample shows how to use circuit breaker using [Spring Cloud Circuit Breaker](https://github.com/spring-cloud-incubator/spring-cloud-circuitbreaker) and [Resilience4j](https://github.com/resilience4j)
 
+### [hello-db-r2dbc-database-client-h2](webfluxfn/hello-db-r2dbc-database-client-h2)
+
+This sample shows how to access H2 database using [R2DBC](https://r2dbc.io/) and `DatabaseClient` from [Spring Data R2DBC](https://github.com/spring-projects/spring-data-r2dbc)
+
 ## Spring WebMvc.fn
 
 ### [hello-mvcfn](webmvcfn/hello-mvcfn)
