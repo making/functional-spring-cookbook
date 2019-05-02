@@ -64,6 +64,10 @@ This sample shows how to access H2 database using [R2DBC](https://r2dbc.io/) and
 
 This sample works as same as [hello-fluxfn](webfluxfn/hello-fluxfn) but **does not use Spring Boot**.
 
+### [vanilla-containerless](webfluxfn/vanilla-containerless)
+
+This sample works as same as [vanilla-fluxfn](webfluxfn/vanilla-fluxfn) but **does not use even `ApplicationContext` (DI Container)**.
+
 ## Spring WebMvc.fn
 
 ### [hello-mvcfn](webmvcfn/hello-mvcfn)
