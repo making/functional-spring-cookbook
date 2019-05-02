@@ -3,7 +3,7 @@ Functional Spring Cookbook
 
 **Disclaimer**
 
-Samples in this repo try to use functions rather than annotations as much as possible.
+Samples in this repo try to use functions as much as possible rather than annotations.
 This is not always the best practice.
 
 ## Spring WebFlux.fn
