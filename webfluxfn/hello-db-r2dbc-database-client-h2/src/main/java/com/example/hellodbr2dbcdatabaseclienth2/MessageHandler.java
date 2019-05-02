@@ -46,16 +46,15 @@ public class MessageHandler {
     }
 
     Mono<ServerResponse> postMessage(ServerRequest req) {
-        Mono<Integer> updated = req.bodyToMono(Message.class)
-            .flatMap(message -> this.databaseClient
+        Mono<Message> body = req.bodyToMono(Message.class)
+            .delayUntil(message -> this.databaseClient
                 .inTransaction(client ->
                     client.insert()
                         .into(Message.class)
                         .using(message)
                         .fetch()
-                        .rowsUpdated())
-                .single());
-        return status(CREATED).body(updated.then(), Void.class);
+                        .rowsUpdated()));
+        return status(CREATED).body(body, Message.class);
     }
 
     Mono<ServerResponse> init(ServerRequest req) {

@@ -37,7 +37,8 @@ public class HelloDbR2dbcDatabaseClientH2ApplicationTests {
             .uri("/messages") //
             .syncBody(new Message("Hello"))
             .exchange() //
-            .expectStatus().isCreated();
+            .expectStatus().isCreated() //
+            .expectBody(String.class).isEqualTo("{\"text\":\"Hello\"}");
 
         this.webTestClient.get()
             .uri("/messages") //
