@@ -28,6 +28,6 @@ public class HelloCircuitBreakerResilience4jApplication implements ApplicationCo
         context.registerBean(FragileApi.class);
         context.registerBean(HelloService.class);
         context.registerBean(RouterFunction.class, () -> this.routes(context.getBean(HelloService.class)));
-        context.registerBean(ReactiveCircuitBreakerFactoryCustomizer.class);
+        context.registerBean(CircuitBreakerFactoryCustomizer.class);
     }
 }

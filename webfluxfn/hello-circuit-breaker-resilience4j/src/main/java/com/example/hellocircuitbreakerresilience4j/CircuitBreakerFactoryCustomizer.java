@@ -13,9 +13,9 @@ import org.springframework.core.style.ToStringCreator;
 
 import java.time.Duration;
 
-public class ReactiveCircuitBreakerFactoryCustomizer implements Customizer<ReactiveResilience4JCircuitBreakerFactory> {
+public class CircuitBreakerFactoryCustomizer implements Customizer<ReactiveResilience4JCircuitBreakerFactory> {
 
-    private final Logger log = LoggerFactory.getLogger(ReactiveCircuitBreakerFactoryCustomizer.class);
+    private final Logger log = LoggerFactory.getLogger(CircuitBreakerFactoryCustomizer.class);
 
     @Override
     public void customize(ReactiveResilience4JCircuitBreakerFactory factory) {
