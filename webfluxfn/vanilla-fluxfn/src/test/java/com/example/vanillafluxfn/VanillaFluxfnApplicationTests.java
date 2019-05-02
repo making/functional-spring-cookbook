@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.SocketUtils;
+import reactor.netty.DisposableServer;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +23,8 @@ public class VanillaFluxfnApplicationTests {
 
     WebTestClient webTestClient;
 
+    DisposableServer disposableServer;
+
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Before
@@ -29,7 +32,10 @@ public class VanillaFluxfnApplicationTests {
         this.port = SocketUtils.findAvailableTcpPort();
         this.context = new VanillaFluxfnApplication().run();
         CountDownLatch latch = new CountDownLatch(1);
-        this.executor.execute(() -> VanillaFluxfnApplication.startServer(port, context, s -> latch.countDown()));
+        this.executor.execute(() -> VanillaFluxfnApplication.startServer(port, context, disposableServer -> {
+            this.disposableServer = disposableServer;
+            latch.countDown();
+        }));
         latch.await();
         this.webTestClient = WebTestClient.bindToServer()
             .baseUrl("http://localhost:" + port)
@@ -38,6 +44,7 @@ public class VanillaFluxfnApplicationTests {
 
     @After
     public void after() {
+        this.disposableServer.dispose();
         this.executor.shutdown();
         this.context.close();
     }
