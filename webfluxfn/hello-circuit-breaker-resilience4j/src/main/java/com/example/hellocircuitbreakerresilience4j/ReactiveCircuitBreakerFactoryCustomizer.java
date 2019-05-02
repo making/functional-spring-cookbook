@@ -26,7 +26,7 @@ public class ReactiveCircuitBreakerFactoryCustomizer implements Customizer<React
                     .failureRateThreshold(50) // 50%
                     .ringBufferSizeInClosedState(30) // 30 * 0.5 => 15/
                     .ringBufferSizeInHalfOpenState(20) // 20 * 0.5 => 10
-                    .waitDurationInOpenState(Duration.ofSeconds(1) /* for demo */)
+                    .waitDurationInOpenState(Duration.ofSeconds(3) /* for demo */)
                     .build())
                 .timeLimiterConfig(TimeLimiterConfig
                     .custom()

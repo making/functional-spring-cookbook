@@ -1,6 +1,5 @@
 package com.example.hellocircuitbreakerresilience4j;
 
-import org.springframework.cloud.circuitbreaker.commons.ReactiveCircuitBreaker;
 import org.springframework.cloud.circuitbreaker.commons.ReactiveCircuitBreakerFactory;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -19,9 +18,10 @@ public class HelloService {
     }
 
     public Flux<String> hello() {
-        final ReactiveCircuitBreaker circuitBreaker = this.circuitBreakerFactory.create("hello");
-        return circuitBreaker.run(this.webClient.get()
+        return this.webClient.get()
             .retrieve()
-            .bodyToFlux(String.class), t -> Flux.just("Fallback!"));
+            .bodyToFlux(String.class)
+            .transform(x -> this.circuitBreakerFactory.create("hello")
+                .run(x, t -> Flux.just("Fallback!")));
     }
 }
