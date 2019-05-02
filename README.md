@@ -60,6 +60,10 @@ This sample shows how to access H2 database using [R2DBC](https://r2dbc.io/) and
 
 This sample shows how to access H2 database using [R2DBC](https://r2dbc.io/) and `DatabaseClient` from [Spring Data R2DBC](https://github.com/spring-projects/spring-data-r2dbc)
 
+### [vanilla-fluxfn](webfluxfn/vanilla-fluxfn)
+
+This sample works as same as [hello-fluxfn](webfluxfn/hello-fluxfn) but **does not use Spring Boot**.
+
 ## Spring WebMvc.fn
 
 ### [hello-mvcfn](webmvcfn/hello-mvcfn)
