@@ -57,3 +57,8 @@ This sample shows the simplest WebMvc.fn application.
 ### [hello-functional-bean-registration](webmvcfn/hello-functional-bean-registration)
 
 This sample shows how to use Functional Bean Registration instead of `@Bean` annotation config.
+
+### [hello-circuit-breaker-resilience4j](webmvcfn/hello-circuit-breaker-resilience4j)
+
+This sample shows how to use circuit breaker using [Spring Cloud Circuit Breaker](https://github.com/spring-cloud-incubator/spring-cloud-circuitbreaker) and [Resilience4j](https://github.com/resilience4j)
+
