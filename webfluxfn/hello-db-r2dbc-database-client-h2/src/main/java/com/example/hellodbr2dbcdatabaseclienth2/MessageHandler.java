@@ -42,11 +42,18 @@ public class MessageHandler {
             .orderBy(Sort.by(desc("created_at")))
             .as(Message.class)
             .all();
+        // or
+//        final Flux<Message> messages = this.databaseClient
+//            .execute()
+//            .sql("SELECT text FROM message ORDER BY created_at DESC")
+//            .as(Message.class)
+//            .fetch()
+//            .all();
         return ok().body(messages, Message.class);
     }
 
     Mono<ServerResponse> postMessage(ServerRequest req) {
-        Mono<Message> body = req.bodyToMono(Message.class)
+        final Mono<Message> body = req.bodyToMono(Message.class)
             .delayUntil(message -> this.databaseClient
                 .inTransaction(client ->
                     client.insert()
@@ -54,6 +61,14 @@ public class MessageHandler {
                         .using(message)
                         .fetch()
                         .rowsUpdated()));
+//        final Mono<Message> body = req.bodyToMono(Message.class)
+//            .delayUntil(message -> this.databaseClient
+//                .inTransaction(client ->
+//                    client.execute()
+//                        .sql("INSERT INTO message(text) VALUES($1)")
+//                        .bind("$1", message.getText())
+//                        .fetch()
+//                        .rowsUpdated()));
         return status(CREATED).body(body, Message.class);
     }
 
