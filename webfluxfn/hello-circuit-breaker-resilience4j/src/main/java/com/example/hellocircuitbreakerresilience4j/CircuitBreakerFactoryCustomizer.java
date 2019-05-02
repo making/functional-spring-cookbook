@@ -23,6 +23,7 @@ public class CircuitBreakerFactoryCustomizer implements Customizer<ReactiveResil
             .configureDefault(id -> new Resilience4JConfigBuilder(id)
                 .circuitBreakerConfig(CircuitBreakerConfig
                     .custom()
+                    // https://resilience4j.github.io/resilience4j/#_set_up
                     .failureRateThreshold(50) // 50%
                     .ringBufferSizeInClosedState(30) // 30 * 0.5 => 15/
                     .ringBufferSizeInHalfOpenState(20) // 20 * 0.5 => 10
