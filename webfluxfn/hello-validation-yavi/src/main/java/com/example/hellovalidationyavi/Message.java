@@ -1,5 +1,6 @@
 package com.example.hellovalidationyavi;
 
+import am.ik.yavi.builder.ValidatorBuilder;
 import am.ik.yavi.core.Validator;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class Message implements Serializable {
         return this.text;
     }
 
-    public static Validator<Message> validator = Validator.builder(Message.class)
+    public static Validator<Message> validator = ValidatorBuilder.of(Message.class)
         .constraint(Message::getText, "text", c -> c.notBlank().lessThanOrEqual(8))
         .build();
 }
