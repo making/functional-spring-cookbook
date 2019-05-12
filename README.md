@@ -77,6 +77,10 @@ This sample shows the simplest WebMvc.fn application.
 
 This sample shows how to use Functional Bean Registration instead of `@Bean` annotation config.
 
+### [hello-http-client](webmvcfn/hello-http-client)
+
+This sample shows how to use a http client (`RestTemplate`).
+
 ### [hello-validation-yavi](webmvcfn/hello-validation-yavi)
 
 This sample shows how to validate an input using [YAVI](https://github.com/making/yavi).
