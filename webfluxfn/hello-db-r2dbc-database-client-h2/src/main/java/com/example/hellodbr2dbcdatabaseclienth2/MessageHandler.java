@@ -1,7 +1,8 @@
 package com.example.hellodbr2dbcdatabaseclienth2;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.r2dbc.function.TransactionalDatabaseClient;
+import org.springframework.data.r2dbc.core.DatabaseClient;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -16,10 +17,13 @@ import static org.springframework.web.reactive.function.server.ServerResponse.st
 
 public class MessageHandler {
 
-    private final TransactionalDatabaseClient databaseClient;
+    private final DatabaseClient databaseClient;
 
-    public MessageHandler(TransactionalDatabaseClient databaseClient) {
+    private final TransactionalOperator rxtx;
+
+    public MessageHandler(DatabaseClient databaseClient, TransactionalOperator rxtx) {
         this.databaseClient = databaseClient;
+        this.rxtx = rxtx;
     }
 
     public RouterFunction<ServerResponse> routes() {
@@ -49,21 +53,19 @@ public class MessageHandler {
 
     Mono<ServerResponse> postMessage(ServerRequest req) {
         final Mono<Message> body = req.bodyToMono(Message.class)
-            .delayUntil(message -> this.databaseClient
-                .inTransaction(client ->
-                    client.insert()
-                        .into(Message.class)
-                        .using(message)
-                        .fetch()
-                        .rowsUpdated()));
+            .delayUntil(message -> this.rxtx.execute(status ->
+                this.databaseClient.insert()
+                    .into(Message.class)
+                    .using(message)
+                    .fetch()
+                    .rowsUpdated()));
 //        final Mono<Message> body = req.bodyToMono(Message.class)
-//            .delayUntil(message -> this.databaseClient
-//                .inTransaction(client ->
-//                    client.execute()
-//                        .sql("INSERT INTO message(text) VALUES($1)")
-//                        .bind("$1", message.getText())
-//                        .fetch()
-//                        .rowsUpdated()));
+//            .delayUntil(message -> this.rxtx.execute(status ->
+//                this.databaseClient.execute()
+//                  .sql("INSERT INTO message(text) VALUES($1)")
+//                  .bind("$1", message.getText())
+//                  .fetch()
+//                  .rowsUpdated()));
         return status(CREATED).body(body, Message.class);
     }
 

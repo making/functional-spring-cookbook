@@ -8,8 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.data.r2dbc.function.DatabaseClient;
-import org.springframework.data.r2dbc.function.TransactionalDatabaseClient;
+import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager;
+import org.springframework.data.r2dbc.core.DatabaseClient;
+import org.springframework.transaction.ReactiveTransactionManager;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 
 import static io.r2dbc.spi.ConnectionFactoryOptions.DATABASE;
@@ -30,7 +32,9 @@ public class HelloDbR2dbcDatabaseClientH2Application implements ApplicationConte
             .option(PROTOCOL, "file")
             .option(DATABASE, "./target/demo")
             .build()));
-        context.registerBean(TransactionalDatabaseClient.class, () -> TransactionalDatabaseClient.create(context.getBean(ConnectionFactory.class)));
+        context.registerBean(DatabaseClient.class, () -> DatabaseClient.create(context.getBean(ConnectionFactory.class)));
+        context.registerBean(ReactiveTransactionManager.class, () -> new R2dbcTransactionManager(context.getBean(ConnectionFactory.class)));
+        context.registerBean(TransactionalOperator.class, () -> TransactionalOperator.create(context.getBean(ReactiveTransactionManager.class)));
         context.registerBean(MessageHandler.class);
         context.registerBean(RouterFunction.class, () -> context.getBean(MessageHandler.class).routes());
         context.registerBean(InitializingBean.class, () -> () -> context.getBean(DatabaseClient.class)
